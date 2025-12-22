@@ -1,7 +1,7 @@
 /*
 strategyTitle = 'Wager with Profit Locks - Dice and Baccarat';
 author        = 'phantomph53';
-version       = '1.10';
+version       = '1.11';
 thanks        = 'cherie for original script';
 */
 
@@ -9,14 +9,14 @@ thanks        = 'cherie for original script';
 // USER CONFIGURABLE VARIABLES
 // ==========================================================
 const SESSION_START_BALANCE = 100.00;
-const MAX_SESSION_LOSS = 5.00;
+const MAX_SESSION_LOSS = 15.00;
 
-const BRIDGE_TRIGGER = 5.00;
-const TRAILING_START = 10.00;
-const TRAILING_RATIO = 0.50;
+const BRIDGE_TRIGGER = 3.00;
+const TRAILING_START = 7.50;
+const TRAILING_RATIO = 0.60;
 
-const BACC_PROFIT_TRIGGER = 25.00;
-const PROFIT_TO_BANK = 5.00;
+const BACC_PROFIT_TRIGGER = 15.00;
+const PROFIT_TO_BANK = 3.00;
 const BACC_PLAYBACK_LIMIT = 15.00;
 
 const DICE_WALLET = 300.00;
@@ -44,6 +44,16 @@ let state = {
     diceBaseBet: DICE_WALLET / DICE_BASE_DIVISOR,
     currentChance: DICE_BASE_CHANCE
 };
+
+// ==========================================================
+// --- ENGINE INITIALIZATION
+// ==========================================================
+game = 'dice';
+betSize = state.diceBaseBet;
+target = chanceToMultiplier(state.currentChance);
+betHigh = true;
+playerBetSize = 0;
+bankerBetSize = 0;
 
 // ==========================================================
 // CORE UTILITIES
