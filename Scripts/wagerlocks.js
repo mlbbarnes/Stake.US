@@ -1,7 +1,7 @@
 /*
 strategyTitle = 'Wager with Profit Locks - Dice and Baccarat';
 author        = 'phantomph53';
-version       = '1.11';
+version       = '1.12';
 thanks        = 'cherie for original script';
 */
 
@@ -54,6 +54,7 @@ target = chanceToMultiplier(state.currentChance);
 betHigh = true;
 playerBetSize = 0;
 bankerBetSize = 0;
+tieBetSize = 0;
 
 // ==========================================================
 // CORE UTILITIES
