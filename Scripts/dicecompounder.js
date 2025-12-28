@@ -1,17 +1,16 @@
 /*
 strategyTitle = 'dice compounder';
 author        = 'phantomph53';
-version       = '1.3';
+version       = '1.4';
 
 ================================================================================
 USER INSTRUCTIONS:
 1. GAME: Dice (2.0x Multiplier / 50.00% Win Chance).
 2. AUTO-SCALE: This script automatically detects your wallet size and adjusts 
    the Base Bet, Unit Step, and Max Cap based on professional risk tiers.
-3. START: Forces a $0.05 hard-reset (or tier equivalent) to kill "Ghost Bets".
-4. PROTECTION: 
+3. PROTECTION: 
    - $5 Profit: "The Bridge" activates (Floor moves to 0).
-   - $10+ Profit: "The Ratchet" activates (Locks 85% of peak gains).
+   - $10+ Profit: "The Ratchet" activates (Locks 60% of peak gains).
    - Near-Floor: "Cooling Mode" resets bet size to survive losing streaks.
 ================================================================================
 */
@@ -35,6 +34,7 @@ function getTiers(balance) {
 game = 'dice';
 target = 2.0;
 betHigh = true;
+betSize = 0.00;
 
 let state = {
     totalWagered: 0,
@@ -61,9 +61,9 @@ function updateSafety(currentProfit) {
         log('#FFD700', `>> BRIDGE: Capital 100% Protected.`);
     }
 
-    // Milestone 2: Aggressive 85% Ratchet ($10.00+)
+    // Milestone 2: 60% Ratchet ($10.00+)
     if (state.peakProfit >= 10.00) {
-        let newFloor = state.peakProfit * 0.85;
+        let newFloor = state.peakProfit * 0.60;
         if (newFloor > state.lockedFloor) state.lockedFloor = newFloor;
     }
 }
@@ -71,7 +71,7 @@ function updateSafety(currentProfit) {
 // ==========================================================
 // 4. MAIN EXECUTION LOOP
 // ==========================================================
-log('#80EE51', `!!! v18.3 UNIVERSAL COMPOUNDER ACTIVE !!!`);
+log('#80EE51', `!!! UNIVERSAL COMPOUNDER ACTIVE !!!`);
 
 engine.onBetPlaced(async (lastBet) => {
     if (state.forceStop) return;
